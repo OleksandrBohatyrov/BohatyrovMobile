@@ -17,6 +17,7 @@ namespace BohatyrovMobile
         Editor editor;
         public EntryPage()
         {
+            Title= "Entry page";
             lbl = new Label { Text = "Mingi tekst" };
             lbl.BackgroundColor = Color.White;
             lbl.TextColor = Color.Orange;
