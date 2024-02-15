@@ -20,7 +20,9 @@ namespace BohatyrovMobile
                 new Calendar(),
                 new StepperSlider_Page(),
                 new RGB(),
-                new Lumememm()
+                new Lumememm(),
+                new FramePage2(),
+                new tripstrapstrull(),
             };
         List<string> text = new List<string>()
             {
@@ -30,7 +32,9 @@ namespace BohatyrovMobile
                 "Ava Calendar",
                 "Ava Stepper Slider",
                 "Ava rgb",
-                "Ava lumememm"
+                "Ava lumememm",
+                "Ava frame page 2",
+                "Ava trips traps trull"
             };
         StackLayout st;
         public StartPage1()

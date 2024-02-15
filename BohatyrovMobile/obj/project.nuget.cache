@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "licEZ48jz2q5ScKSRC9EE43koA2l/i8WXXIg3uhfe0H32+xTgU2r++FTANcosRahT/HdCmQqTGYlnPuqmqDeCA==",
+  "dgSpecHash": "o90lnY7YHBVZVtsU8OescjMSC1CJ16UyzJYjBe49ioMk1a6b4tZMsXGzeUudr3aU+oFWPwJriM5AzqJLTnWB2w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj",
+  "projectFilePath": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\opilane\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\opilane\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",

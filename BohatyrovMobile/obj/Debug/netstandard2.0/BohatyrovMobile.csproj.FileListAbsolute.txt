@@ -23,3 +23,5 @@ C:\Users\opilane\Source\Repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstand
 C:\Users\opilane\Source\Repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstandard2.0\Frame_Page.xaml.g.cs
 C:\Users\opilane\Source\Repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstandard2.0\RGB.xaml.g.cs
 C:\Users\opilane\Source\Repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstandard2.0\Lumememm.xaml.g.cs
+C:\Users\opilane\source\repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstandard2.0\FramePage2.xaml.g.cs
+C:\Users\opilane\source\repos\BohatyrovMobile\BohatyrovMobile\obj\Debug\netstandard2.0\tripstrapstrull.xaml.g.cs

@@ -3414,11 +3414,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
+      "projectUniqueName": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
       "projectName": "BohatyrovMobile.Android",
-      "projectPath": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
+      "projectPath": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
       "packagesPath": "C:\\Users\\opilane\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile.Android\\obj\\",
+      "outputPath": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -3439,8 +3439,8 @@
       "frameworks": {
         "monoandroid13.0": {
           "projectReferences": {
-            "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj": {
-              "projectPath": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj"
+            "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj": {
+              "projectPath": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile\\BohatyrovMobile.csproj"
             }
           }
         }

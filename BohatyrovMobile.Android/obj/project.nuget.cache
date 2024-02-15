@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6TsZR0VKEnFPBWnZkmepEJF0uFr4P9ET90zu0y7/179r3Qw0gbD82zwu6IJewD4bnHH6jqgMuuaHcfgoLTsflA==",
+  "dgSpecHash": "xi9hxfuN/1MHg9umXEHZu9g9u53HovFUHmp4U97oUbXMQRTHDvpQc9CyB0DDCBeFE37HLpLRgxQlkwtRpYsXGA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\opilane\\Source\\Repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
+  "projectFilePath": "C:\\Users\\opilane\\source\\repos\\BohatyrovMobile\\BohatyrovMobile.Android\\BohatyrovMobile.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\opilane\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
     "C:\\Users\\opilane\\.nuget\\packages\\xamarin.androidx.activity\\1.2.4.1\\xamarin.androidx.activity.1.2.4.1.nupkg.sha512",
