@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-
+using System.Xml.Serialization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static System.Net.WebRequestMethods;
 
 namespace BohatyrovMobile
 {
@@ -13,9 +15,13 @@ namespace BohatyrovMobile
     public partial class tripstrapstrull : ContentPage
     {
         int counter = 0;
-        Grid grid;
+        Label counterlbl;
+        Grid grid, bottomgrid;
         Random random = new Random();
-        Frame fr;
+        Frame[,] frames;
+        bool isRedTurn;
+        Button reset, firstMoveButton;
+
         public tripstrapstrull()
         {
             grid = new Grid
@@ -23,66 +29,234 @@ namespace BohatyrovMobile
                 BackgroundColor = Color.LightBlue,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-
             };
-            TapGestureRecognizer tap = new TapGestureRecognizer();
-            tap.Tapped += Tap_Tapped; ;
-            tap.NumberOfTapsRequired = 1;
-            grid.GestureRecognizers.Add(tap);
+            counterlbl = new Label
+            {
+                BackgroundColor = Color.LightBlue,
+                FontSize = 12,
+                TextColor = Color.Black,
+                Text = "Counter",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+            };
 
 
+
+            isRedTurn = random.Next(2)==1;
+
+            // Создаем сетку с фреймами
+            frames = new Frame[3, 3];
             for (int i = 0; i < 3; i++)
             {
-
-
                 for (int j = 0; j < 3; j++)
                 {
-                    grid.Children.Add(
-                        fr = new Frame
-                        {
-                            BackgroundColor = Color.Black,
-                            VerticalOptions = LayoutOptions.FillAndExpand,
-                            HorizontalOptions = LayoutOptions.FillAndExpand,
-                            Margin = 5
-                        }, i, j
-                        );
-                    fr.GestureRecognizers.Add(tap);
+                    Frame frame = new Frame
+                    {
+                        BackgroundColor = Color.Black,
+                        VerticalOptions = LayoutOptions.FillAndExpand,
+                        HorizontalOptions = LayoutOptions.FillAndExpand,
+                        Margin = 5,
+                        
+                    };
+                    frame.GestureRecognizers.Add(new TapGestureRecognizer { CommandParameter = (i, j), Command = new Command(OnFrameTapped) });
+
+                    frames[i, j] = frame;
+                    grid.Children.Add(frame, i, j);
                 }
-                Content = grid;
+            }
+            reset = new Button
+            {
+                BackgroundColor = Color.LightBlue,
+                FontSize = 32,
+                TextColor = Color.Black,
+                Text = "Reset",
+                BorderWidth = 0,
+                
+           
+           
+                
+
+            };
+            reset.Clicked += Reset_Clicked;
+
+            firstMoveButton = new Button
+            {
+                BackgroundColor= Color.LightBlue,
+                FontSize = 26,
+                TextColor = Color.Black,
+                BorderWidth= 0,
+                Text = "Esimene käik",
+             
+
+            };
+            firstMoveButton.Clicked += FirstMoveButton_Clicked;
+
+
+            Grid bottomGrid = new Grid
+            {
+                BackgroundColor = Color.LightBlue,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                RowDefinitions = { new RowDefinition { Height = GridLength.Star } }, //  высота
+                ColumnDefinitions = { new ColumnDefinition { Width = GridLength.Star } }, //  ширина столбца
+               
+                
+    
+            };
+
+
+
+            bottomGrid.Children.Add(firstMoveButton, 0, 0);
+            bottomGrid.Children.Add(reset, 1, 0);
+         
+
+
+            StackLayout st = new StackLayout
+            {
+                BackgroundColor = Color.LightBlue,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                Children = { grid, bottomGrid, counterlbl }
+            };
+            Content = st;
+
+
+
+
+
+        }
+
+        private async void FirstMoveButton_Clicked(object sender, EventArgs e)
+        {
+            string firstMove = await DisplayActionSheet("Vali, kes teeb esimese käigu", null, null, "Punane", "Roheline");
+            if (firstMove == "Punane")
+            {
+                isRedTurn = true;
+            }
+            else if (firstMove == "Roheline")
+            {
+                isRedTurn = false;
             }
         }
 
-        private void Tap_Tapped(object sender, EventArgs e)
+        private void Reset_Clicked(object sender, EventArgs e)
         {
-            counter++;
-            Label fr = (Label)sender;
-            int r = Grid.GetRow( fr );
-            int c = Grid.GetColumn(fr);
-            if ( counter % 2==0 ) {
-            
-                if (Grid.GetRow(fr) == r && Grid.GetColumn(fr) ==c) {
-
-                    fr.Text = "0";
-                    fr.FontSize = 34;
-                    fr.TextColor = Color.White;
-                
-                }
-            
-            }
-            else
+            counter = 0;
+            isRedTurn = random.Next(2) == 1;
+            foreach (Frame frame in frames)
             {
-                if (Grid.GetRow(fr)== r && Grid.GetColumn(fr)==c)
+                frame.BackgroundColor = Color.Black;
+            }
+
+        }
+
+        private void ResetGame() {
+            counter = 0;
+            isRedTurn = random.Next(2) == 1;
+            foreach (Frame frame in frames)
+            {
+                frame.BackgroundColor = Color.Black;
+            }
+
+        }
+
+        private bool CheckForWin(Color color)
+        {
+            // Проверяем по горизонтали
+            for (int i = 0; i < 3; i++)
+            {
+                if (frames[i, 0].BackgroundColor == color &&
+                    frames[i, 1].BackgroundColor == color &&
+                    frames[i, 2].BackgroundColor == color)
                 {
-                    fr.Text = "X";
-                    fr.TextColor = Color.White;
-                    fr.FontSize = 34;
+                    return true;
                 }
+            }
+
+            // Проверяем по вертикали
+            for (int i = 0; i < 3; i++)
+            {
+                if (frames[0, i].BackgroundColor == color &&
+                    frames[1, i].BackgroundColor == color &&
+                    frames[2, i].BackgroundColor == color)
+                {
+                    return true;
+                }
+            }
+
+            // Проверяем по диагоналям
+            if (frames[0, 0].BackgroundColor == color &&
+                frames[1, 1].BackgroundColor == color &&
+                frames[2, 2].BackgroundColor == color)
+            {
+                return true;
+            }
+            if (frames[0, 2].BackgroundColor == color &&
+                frames[1, 1].BackgroundColor == color &&
+                frames[2, 0].BackgroundColor == color)
+            {
+                return true;
+            }
+
+            return false;
+        }
+        void Count()
+        {
+          
+            counter++;
+            counterlbl.Text = "Counter: " + counter.ToString();
+
+
+
+
+        }
+
+        // Метод вызывается при нажатии на фрейм
+        private async void OnFrameTapped(object parameter)
+        {
+           
+            Count();
+            (int x, int y) = ((int, int))parameter;
+            Frame frame = frames[x, y];
+
+            if (frame.BackgroundColor == Color.Black) // Проверяем, что ячейка пустая
+            {
+                if (isRedTurn)
+                {
+                    frame.BackgroundColor = Color.Red; // Крестик
+                }
+                else
+                {
+                    frame.BackgroundColor = Color.Green; // Нолик
+                }
+
+                isRedTurn = !isRedTurn; // Меняем очередь игрока
+            }
+
+            if (CheckForWin(Color.Red))
+            {
+          
+               await DisplayAlert("Trips traps trull", "Punane võidab", "OK");
+        
+                    frame.BackgroundColor = Color.Black;
+                ResetGame();
+
+            }
+            else if (CheckForWin(Color.Green))
+            {
+
+                await DisplayAlert("Trips traps trull", "Rohelised võitsid", "OK");
+
+                ResetGame();
+                
+            }
+            else if (counter==9)
+            {
+          
+                await DisplayAlert("Trips traps trull", "Nichiya", "OK");
+
+                ResetGame();
+
             }
            
-
-
-
-
         }
     }
 }
