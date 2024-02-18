@@ -20,7 +20,10 @@ namespace BohatyrovMobile
         Random random = new Random();
         Frame[,] frames;
         bool isRedTurn;
-        Button reset, firstMoveButton;
+        Button reset, firstMoveButton, botBtn;
+        bool isBot = false;
+    
+
 
         public tripstrapstrull()
         {
@@ -39,7 +42,7 @@ namespace BohatyrovMobile
                 HorizontalOptions = LayoutOptions.FillAndExpand,
             };
 
-
+        
 
             isRedTurn = random.Next(2)==1;
 
@@ -101,7 +104,16 @@ namespace BohatyrovMobile
                 
     
             };
+            botBtn = new Button
+            {
+                BackgroundColor = Color.LightBlue,
+                FontSize = 26,
+                TextColor = Color.Black,
+                BorderWidth = 0,
+                Text = "BOT",
 
+            };
+            botBtn.Clicked += BotBtn_Clicked;
 
 
             bottomGrid.Children.Add(firstMoveButton, 0, 0);
@@ -114,15 +126,24 @@ namespace BohatyrovMobile
                 BackgroundColor = Color.LightBlue,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
-                Children = { grid, bottomGrid, counterlbl }
+                Children = { grid, bottomGrid, counterlbl, botBtn }
             };
             Content = st;
 
-
+    
 
 
 
         }
+
+        private void BotBtn_Clicked(object sender, EventArgs e)
+        {
+            isBot = true;
+            int botTurn = (isRedTurn ? 0 : 1); // 0 for Red, 1 for Green
+            isRedTurn = random.Next(2) == 1;
+            frames[1, botTurn].BackgroundColor = isRedTurn ? Color.Red : Color.Green;
+        }
+        
 
         private async void FirstMoveButton_Clicked(object sender, EventArgs e)
         {
@@ -139,6 +160,7 @@ namespace BohatyrovMobile
 
         private void Reset_Clicked(object sender, EventArgs e)
         {
+            isBot = false;
             counter = 0;
             isRedTurn = random.Next(2) == 1;
             foreach (Frame frame in frames)
@@ -149,6 +171,7 @@ namespace BohatyrovMobile
         }
 
         private void ResetGame() {
+            isBot = false;
             counter = 0;
             isRedTurn = random.Next(2) == 1;
             foreach (Frame frame in frames)
@@ -209,6 +232,29 @@ namespace BohatyrovMobile
 
         }
 
+        private void BotMove()
+        {
+            int botTurn = (isRedTurn ? 0 : 1); // цвет, который бот будет использовать
+            bool moveMade = false;
+
+           // случ ход
+            while (!moveMade)
+            {
+                int randomX = random.Next(3);
+                int randomY = random.Next(3);
+
+             
+                if (frames[randomX, randomY].BackgroundColor == Color.Black)
+                {
+                    frames[randomX, randomY].BackgroundColor = isRedTurn ? Color.Red : Color.Green;
+                    moveMade = true;
+                }
+            }
+
+            isRedTurn = !isRedTurn; 
+        }
+
+
         // Метод вызывается при нажатии на фрейм
         private async void OnFrameTapped(object parameter)
         {
@@ -219,16 +265,22 @@ namespace BohatyrovMobile
 
             if (frame.BackgroundColor == Color.Black) // Проверяем, что ячейка пустая
             {
+  
                 if (isRedTurn)
                 {
-                    frame.BackgroundColor = Color.Red; // Крестик
+                    frame.BackgroundColor = Color.Red;
                 }
                 else
                 {
-                    frame.BackgroundColor = Color.Green; // Нолик
+                    frame.BackgroundColor = Color.Green; 
                 }
 
                 isRedTurn = !isRedTurn; // Меняем очередь игрока
+
+                if (isBot==true)
+                {
+                    BotMove();
+                }
             }
 
             if (CheckForWin(Color.Red))
